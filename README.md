@@ -1,70 +1,474 @@
-# Getting Started with Create React App
+# Ex03 To-Do List using JavaScript
+## Date:03/08/2026
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## AIM
+To create a To-do Application with all features using JavaScript.
 
-## Available Scripts
+## ALGORITHM
+### STEP 1
+Build the HTML structure (index.html).
 
-In the project directory, you can run:
+### STEP 2
+Style the App (style.css).
 
-### `npm start`
+### STEP 3
+Plan the features the To-Do App should have.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### STEP 4
+Create a To-do application using Javascript.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### STEP 5
+Add functionalities.
 
-### `npm test`
+### STEP 6
+Test the App.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### STEP 7
+Open the HTML file in a browser to check layout and functionality.
 
-### `npm run build`
+### STEP 8
+Fix styling issues and refine content placement.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### STEP 9
+Deploy the website.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### STEP 10
+Upload to GitHub Pages for free hosting.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## PROGRAM
+## TODO.JSX
+```
+import {useRef,useState} from "react";
+import "../style/todo.css";
 
-### `npm run eject`
+function ToDo()
+{
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+    const taskTextBox = useRef(null);
+    const taskDescBox = useRef(null);
+    const taskTypeBox = useRef(null);
+    const taskDateBox = useRef(null);
+    const taskTimeBox = useRef(null);
+    
+    const toDo={
+        taskName:"",   
+        taskDesc:"",
+        taskType:"",
+        taskDate:"",
+        taskTime:""
+    };
+   
+    const [taskList,setTaskList] = useState([]);
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+   function handleAddTask() {
+   toDo.taskName = taskTextBox.current.value;
+   toDo.taskDesc = taskDescBox.current.value;
+   toDo.taskType = taskTypeBox.current.value;
+   toDo.taskDate = taskDateBox.current.value;
+   toDo.taskTime = taskTimeBox.current.value;
+   setTaskList([...taskList,toDo]);  
+   console.log(taskList); 
+   
+  }
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+    return (<>
+    <header className="hero">My Task List</header>
+    <div className="container">
+        <div className="row">
+            <div className="item">
+                <label>Add Task</label>
+            </div>
+             <div className="item">
+                <input type="text"
+                title="Enter task here..."
+                placeholder="Enter task here..."
+                ref={taskTextBox} />
+             </div>
+             
+        </div>
 
-### Code Splitting
+         <div className="row">
+            <div className="item">
+                <label>Add Desc</label>
+            </div>
+             <div className="item">
+                <textarea 
+                placeholder="Enter task description here..."
+                ref={taskDescBox}
+                ></textarea>
+             </div>
+        </div>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+        <div className="row">
+            <div className="item">
+                <label>Task Type</label>
+            </div>
+             <div className="item">
+                <select ref={taskTypeBox}>
+                    <option 
+                    placeholder="Select task type">Select task type</option>
+                    <option>Personal</option>
+                     <option>College</option>
+                      <option>Shopping</option>
+                </select>
+               
+             </div>
+        </div>
+        <div className="row">
+            <div className="item">
+                <label>Due Date</label>
+            </div>
+             <div className="item">
+                <input type="date"
+                ref={taskDateBox}
+                 defaultValue={new Date().toISOString().split('T')[0]} />
+             </div>
+        </div>
+        <div className="row">
+            <div className="item">
+                <label>Time</label>
+            </div>
+             <div className="item">
+                <input type="time"
+                ref={taskTimeBox}
+                 defaultValue={new Date().toTimeString().slice(0, 5)} />
+             </div>
+        </div>
+        <div className="row">
+            <div className="item">
+                
+            </div>
+             <div className="item">
+                <button onClick={handleAddTask}>Add</button>
+             </div>
+        </div>
+    </div>
+    <div>
+        <h2>Task List</h2>
+        <ul>
+            {taskList.map((task, index) => (
+                <li key={index}>
+                    <strong>{task.taskName}</strong> - {task.taskDesc} ({task.taskType}) - {task.taskDate} at {task.taskTime}
+                </li>
+            ))}
+        </ul>
+    </div>
+    </>)
+}
 
-### Analyzing the Bundle Size
+export default ToDo;
+```
+## TODO.CSS
+```
+/* ==========================
+   Global Theme
+========================== */
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+:root{
 
-### Making a Progressive Web App
+    --primary:#eb2567;
+    --primary-dark:#331dd8;
+    --secondary:#0670d4;
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+    --background:#f4f7fb;
+    --surface:#ffffff;
 
-### Advanced Configuration
+    --text:#1f2937;
+    --text-light:#6b7280;
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+    --border:#dbe4f0;
 
-### Deployment
+    --radius:12px;
+    --shadow:0 10px 30px rgba(0,0,0,.08);
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+}
 
-### `npm run build` fails to minify
+/* ==========================
+   Reset
+========================== */
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Segoe UI,Tahoma,Geneva,Verdana,sans-serif;
+}
+
+body{
+    background:var(--background);
+}
+
+/* ==========================
+   Hero
+========================== */
+
+.hero{
+
+    background:linear-gradient(135deg,var(--primary),var(--secondary));
+    color:white;
+
+    text-align:center;
+
+    font-size:34px;
+    font-weight:bold;
+
+    padding:30px;
+
+    letter-spacing:1px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.15);
+
+}
+
+/* ==========================
+   Container
+========================== */
+
+.container{
+
+    width:min(900px,92%);
+    margin:40px auto;
+
+    background:var(--surface);
+
+    border-radius:var(--radius);
+
+    padding:35px;
+
+    box-shadow:var(--shadow);
+
+}
+
+/* ==========================
+   Row
+========================== */
+
+.row{
+
+    display:flex;
+    align-items:center;
+
+    gap:20px;
+
+    margin-bottom:22px;
+
+}
+
+/* ==========================
+   Items
+========================== */
+
+.item:first-child{
+
+    flex:1;
+
+}
+
+.item:last-child{
+
+    flex:3;
+
+}
+
+/* ==========================
+   Labels
+========================== */
+
+label{
+
+    color:var(--text);
+
+    font-weight:600;
+
+    font-size:16px;
+
+}
+
+/* ==========================
+   Inputs
+========================== */
+
+input,
+textarea,
+select{
+
+    width:100%;
+
+    padding:12px 15px;
+
+    border:1px solid var(--border);
+
+    border-radius:10px;
+
+    font-size:15px;
+
+    outline:none;
+
+    transition:.3s;
+
+    background:white;
+
+}
+
+textarea{
+
+    min-height:120px;
+
+    resize:vertical;
+
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+
+    border-color:var(--primary);
+
+    box-shadow:0 0 0 4px rgba(37,99,235,.15);
+
+}
+
+/* ==========================
+   Button
+========================== */
+
+button{
+
+    background:linear-gradient(135deg,var(--primary),var(--secondary));
+
+    color:white;
+
+    border:none;
+
+    padding:13px 35px;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+button:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:0 10px 20px rgba(37,99,235,.25);
+
+}
+
+button:active{
+
+    transform:scale(.98);
+
+}
+
+/* ==========================
+   Placeholder
+========================== */
+
+::placeholder{
+
+    color:#999;
+
+}
+
+/* ==========================
+   Responsive
+========================== */
+
+@media(max-width:768px){
+
+    .hero{
+
+        font-size:28px;
+
+        padding:22px;
+
+    }
+
+    .container{
+
+        padding:25px;
+
+    }
+
+    .row{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:10px;
+
+    }
+
+    .item{
+
+        width:100%;
+
+    }
+
+    button{
+
+        width:100%;
+
+    }
+
+}
+
+@media(max-width:480px){
+
+    .hero{
+
+        font-size:24px;
+
+    }
+
+    .container{
+
+        padding:20px;
+
+    }
+
+    label{
+
+        font-size:15px;
+
+    }
+
+}
+```
+## IDEX.CSS
+```
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+```
+## OUTPUT
+<img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/7f24b825-28ff-4140-8288-f23a5a49d58c" />
+<img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/f96ab4d1-4e71-49e2-b99a-03eb97cb5b4e" />
+<img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/b3ca90e1-7ea5-4637-8b60-9b065c9109f6" />
+
+## RESULT
+The program for creating To-do list using JavaScript is executed successfully.
